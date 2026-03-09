@@ -1,0 +1,1171 @@
+{
+  "date": "2026-03-09",
+  "overall_grade": "B",
+  "overall_score": 2.87,
+  "total_items": 346829,
+  "total_collections": 38,
+  "principles": {
+    "F1": {
+      "grade": "C",
+      "score": 2.0,
+      "weight": 1.5,
+      "finding_count": 63,
+      "gap": "Collection has self-link but no DOI or persistent ID; Platform-internal ID only \u2014 no persistent identifier (DOI, ARK, etc.)",
+      "remediation": "Add DOI or persistent identifier field to item metadata; Assign DOI to collection"
+    },
+    "F2": {
+      "grade": "D",
+      "score": 1.44,
+      "weight": 1.5,
+      "finding_count": 25,
+      "gap": "Missing: datetime, keywords, license, providers, instruments; Missing: start_datetime, end_datetime, keywords, license, providers; Missing: title, description, keywords, license, providers",
+      "remediation": "Populate missing metadata fields from upstream source"
+    },
+    "F3": {
+      "grade": "A",
+      "score": 4.0,
+      "weight": 1.5,
+      "finding_count": 25,
+      "gap": "",
+      "remediation": ""
+    },
+    "F4": {
+      "grade": "A",
+      "score": 3.82,
+      "weight": 1.5,
+      "finding_count": 38,
+      "gap": "Only 100 items indexed; Only 12 items indexed; Only 16 items indexed",
+      "remediation": "Ensure items are being indexed from this source"
+    },
+    "A1": {
+      "grade": "A",
+      "score": 4.0,
+      "weight": 1.5,
+      "finding_count": 27,
+      "gap": "",
+      "remediation": ""
+    },
+    "A1.1": {
+      "grade": "A",
+      "score": 4.0,
+      "weight": 1.5,
+      "finding_count": 2,
+      "gap": "",
+      "remediation": ""
+    },
+    "A1.2": {
+      "grade": "B",
+      "score": 3.0,
+      "weight": 1.5,
+      "finding_count": 2,
+      "gap": "Public access confirmed; cannot verify auth mechanism for restricted datasets from outside",
+      "remediation": "Document auth/authz mechanism; expose auth endpoints in API conformance"
+    },
+    "A2": {
+      "grade": "B",
+      "score": 3.0,
+      "weight": 1.5,
+      "finding_count": 2,
+      "gap": "Metadata appears independently stored but no explicit retention policy found",
+      "remediation": "Add explicit metadata retention policy; verify metadata persists when upstream ERDDAP/source is unavailable"
+    },
+    "I1": {
+      "grade": "A",
+      "score": 4.0,
+      "weight": 1.0,
+      "finding_count": 25,
+      "gap": "no STAC extensions declared",
+      "remediation": ""
+    },
+    "I2": {
+      "grade": "C",
+      "score": 1.52,
+      "weight": 1.0,
+      "finding_count": 25,
+      "gap": "keywords not from controlled vocabulary (GCMD, CF, etc.); no CF Standard Names for variables; keywords not from controlled vocabulary (GCMD, CF, etc.); no CF Standard Names for variables; no variable metadata",
+      "remediation": "Map keywords to GCMD Science Keywords; add CF Standard Names to variables"
+    },
+    "I3": {
+      "grade": "C",
+      "score": 2.28,
+      "weight": 1.0,
+      "finding_count": 25,
+      "gap": "Only basic link rels present ({'root', 'parent', 'collection', 'self'}); missing qualified references (derived_from, related, cite-as, etc.); Only basic link rels present ({'root', 'self', 'parent', 'collection'}); missing qualified references (derived_from, related, cite-as, etc.)",
+      "remediation": "Add qualified link relations (derived_from, related, cite-as) to connect datasets"
+    },
+    "R1": {
+      "grade": "C",
+      "score": 1.6,
+      "weight": 1.0,
+      "finding_count": 25,
+      "gap": "Missing: quality, size; Missing: resolution, quality, size; Missing: resolution, quality, size, variables",
+      "remediation": "Add resolution, quality, and size metadata"
+    },
+    "R1.1": {
+      "grade": "C",
+      "score": 2.21,
+      "weight": 1.0,
+      "finding_count": 63,
+      "gap": "No license field present",
+      "remediation": "Add SPDX license identifier and license URI link; Add license to collection metadata"
+    },
+    "R1.2": {
+      "grade": "B",
+      "score": 3.28,
+      "weight": 1.0,
+      "finding_count": 25,
+      "gap": "no processor role in providers; no processor role in providers; no STAC processing extension",
+      "remediation": "Add processing lineage, ingestion timestamps, and provider roles"
+    },
+    "R1.3": {
+      "grade": "C",
+      "score": 1.84,
+      "weight": 1.0,
+      "finding_count": 25,
+      "gap": "no CF convention attributes; no ACDD attributes; no CF convention attributes; no ACDD attributes; no STAC extensions declared",
+      "remediation": "Add CF convention attributes and ACDD metadata to items"
+    }
+  },
+  "sources": {
+    "NOAA_GDP": {
+      "title": "Global Drifter Program - 6 Hour Interpolated QC Drifter Data",
+      "item_count": 9,
+      "overall_grade": "B",
+      "overall_score": 2.7,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F2": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F3": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "F4": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "A1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I2": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "I3": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1.1": {
+          "grade": "C",
+          "score": 1.67
+        },
+        "R1.2": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.3": {
+          "grade": "C",
+          "score": 2.0
+        }
+      }
+    },
+    "UAF": {
+      "title": "NOAA GEO-IDE UAF ERDDAP",
+      "item_count": 7775,
+      "overall_grade": "B",
+      "overall_score": 2.74,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F2": {
+          "grade": "C",
+          "score": 1.6
+        },
+        "F3": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "A1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I2": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "I3": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1.1": {
+          "grade": "D",
+          "score": 1.33
+        },
+        "R1.2": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.3": {
+          "grade": "C",
+          "score": 2.0
+        }
+      }
+    },
+    "INCIDENT_NEWS": {
+      "title": "NOAA Incident News",
+      "item_count": 4844,
+      "overall_grade": "B",
+      "overall_score": 2.65,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F2": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F3": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "A1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I2": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "I3": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "R1.1": {
+          "grade": "D",
+          "score": 1.4
+        },
+        "R1.2": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.3": {
+          "grade": "C",
+          "score": 2.0
+        }
+      }
+    },
+    "BATHYMETRY": {
+      "title": "NOAA Bathymetry Surveys",
+      "item_count": 1997,
+      "overall_grade": "B",
+      "overall_score": 2.59,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F2": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "F3": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "A1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I2": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "I3": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "R1.1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1.2": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.3": {
+          "grade": "C",
+          "score": 2.0
+        }
+      }
+    },
+    "PMEL": {
+      "title": "PMEL ERDDAP",
+      "item_count": 428,
+      "overall_grade": "B",
+      "overall_score": 2.61,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F2": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "F3": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "A1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I2": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "I3": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1.1": {
+          "grade": "D",
+          "score": 1.4
+        },
+        "R1.2": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.3": {
+          "grade": "D",
+          "score": 1.0
+        }
+      }
+    },
+    "IOOS_SENSORS": {
+      "title": "IOOS Sensors ERDDAP",
+      "item_count": 29587,
+      "overall_grade": "B",
+      "overall_score": 2.8,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F2": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F3": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "A1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I2": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "I3": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1.1": {
+          "grade": "C",
+          "score": 1.67
+        },
+        "R1.2": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.3": {
+          "grade": "C",
+          "score": 2.0
+        }
+      }
+    },
+    "sentinel-1-grd": {
+      "title": "Sentinel-1 GRD",
+      "item_count": 2241,
+      "overall_grade": "B",
+      "overall_score": 2.68,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F2": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "F3": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "A1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I2": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "I3": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "R1.1": {
+          "grade": "D",
+          "score": 1.29
+        },
+        "R1.2": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.3": {
+          "grade": "C",
+          "score": 2.0
+        }
+      }
+    },
+    "sentinel-2-l2a": {
+      "title": "Sentinel-2 L2A",
+      "item_count": 22317,
+      "overall_grade": "B",
+      "overall_score": 2.86,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F2": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "F3": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "A1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I1": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "I2": {
+          "grade": "D",
+          "score": 1.0
+        },
+        "I3": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1.2": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.3": {
+          "grade": "C",
+          "score": 2.0
+        }
+      }
+    },
+    "AOOS": {
+      "title": "AOOS ERDDAP",
+      "item_count": 2733,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "APDRC": {
+      "title": "APDRC ERDDAP",
+      "item_count": 142,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "BCODM": {
+      "title": "Biological and Chemical Oceanography Data Management Office (BCO-DMO) ERDDAP",
+      "item_count": 506,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "CDIP": {
+      "title": "Coastal Data Information Program ERDDAP",
+      "item_count": 5,
+      "overall_grade": "B",
+      "overall_score": 2.62,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "CENCOOS": {
+      "title": "CeNCOOS ERDDAP",
+      "item_count": 1060,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "COASTWATCH": {
+      "title": "CoastWatch ERDDAP",
+      "item_count": 1008,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "COASTWATCH_WC": {
+      "title": "NOAA CoastWatch West Coast Node / ERD ERDDAP",
+      "item_count": 100,
+      "overall_grade": "B",
+      "overall_score": 2.62,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "COOP": {
+      "title": "NCEI NOAA COOP",
+      "item_count": 1996,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "COOPS": {
+      "title": "NOAA CO-OPS Stations",
+      "item_count": 389,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "DIGITALCOAST": {
+      "title": "NOAA Digital Coast",
+      "item_count": 3286,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "GADR": {
+      "title": "Global Argo Data Repository",
+      "item_count": 15469,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "GCOOS_HIST": {
+      "title": "GCOOS Historical Collections ERDDAP (Texas A&M)",
+      "item_count": 12974,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "GLOS": {
+      "title": "Great Lakes Observing System ERDDAP",
+      "item_count": 2800,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "GOOS": {
+      "title": "GOOS ERDDAP",
+      "item_count": 21,
+      "overall_grade": "B",
+      "overall_score": 2.62,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "HYPERION": {
+      "title": "Hyperion Technology Group",
+      "item_count": 12,
+      "overall_grade": "B",
+      "overall_score": 2.62,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "IOOS": {
+      "title": "IOOS Glider DAC ERDDAP",
+      "item_count": 2415,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "MARACOOS": {
+      "title": "MARACOOS ERDDAP",
+      "item_count": 421,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "NDBC": {
+      "title": "National Data Buoy Center",
+      "item_count": 1471,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "NEFSC": {
+      "title": "NOAA NMFS Northeast Fisheries Science Center ERDDAP",
+      "item_count": 16,
+      "overall_grade": "B",
+      "overall_score": 2.62,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "NEXRAD": {
+      "title": "NOAA NEXRAD Level III Weather Radar",
+      "item_count": 209,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "NOAA": {
+      "title": "NOAA ERDDAP",
+      "item_count": 165,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "NOAA_ORR": {
+      "title": "NOAA ORR ERDDAP",
+      "item_count": 29,
+      "overall_grade": "B",
+      "overall_score": 2.62,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "B",
+          "score": 3.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "NOS_COOPS": {
+      "title": "NOAA NOS CO-OPS ERDDAP",
+      "item_count": 0,
+      "overall_grade": "C",
+      "overall_score": 2.4,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "OOI": {
+      "title": "OOI ERDDAP",
+      "item_count": 768,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "OOI_GOLDCOPY": {
+      "title": "OOI Gold Copy ERDDAP",
+      "item_count": 0,
+      "overall_grade": "C",
+      "overall_score": 2.4,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "POLARWATCH": {
+      "title": "NOAA PolarWatch ERDDAP",
+      "item_count": 271,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "PacIOOS": {
+      "title": "PacIOOS ERDDAP",
+      "item_count": 174,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "SEATUBE": {
+      "title": "Ocean Network Canada - SeaTube",
+      "item_count": 484,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "SECOORA": {
+      "title": "Southeast Coastal Ocean Observing Regional Association ERDDAP",
+      "item_count": 2053,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    },
+    "WOD": {
+      "title": "World Ocean Database",
+      "item_count": 226654,
+      "overall_grade": "B",
+      "overall_score": 3.0,
+      "principles": {
+        "F1": {
+          "grade": "C",
+          "score": 2.0
+        },
+        "F4": {
+          "grade": "A",
+          "score": 4.0
+        },
+        "R1.1": {
+          "grade": "B",
+          "score": 3.0
+        }
+      }
+    }
+  }
+}
