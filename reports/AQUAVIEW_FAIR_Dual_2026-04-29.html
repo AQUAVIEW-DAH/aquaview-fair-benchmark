@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>AQUAVIEW FAIR Dual-Score MVP — 2026-04-29</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; background: #f1f5f9; color: #0f172a; max-width: 1100px; margin: 32px auto; padding: 0 24px; line-height: 1.5; }
+  h1 { font-size: 28px; margin-bottom: 6px; }
+  .lede { color: #475569; font-size: 16px; margin-bottom: 32px; }
+  .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: #64748b; margin-bottom: 4px; }
+  details { margin: 16px 0; }
+  summary { cursor: pointer; font-weight: 600; color: #0f172a; }
+</style>
+</head><body>
+<div class="kicker">v0 MVP · 2026-04-29</div>
+<h1>AQUAVIEW FAIR — Dual-Score Demo</h1>
+<p class="lede">A side-by-side measurement of <strong>FAIR-C</strong> (machine-actionability, computed by the existing benchmark) and <strong>FAIR-H</strong> (human-experience, new lightweight heuristics). The premise: machine-FAIR and human-FAIR diverge, and a real platform owes its users both views. Baseline FAIR-C from 2026-03-09; FAIR-H computed live.</p>
+
+<details>
+<summary>About the FAIR-H v0 metrics</summary>
+<ul style="color:#475569;font-size:14px;">
+<li><strong>F-H Findability</strong> — count of plain-language ocean/data terms in title/description/keywords</li>
+<li><strong>A-H1 Format friction</strong> — analysis-ready (Zarr/Parquet/GeoTIFF) vs heavy (NetCDF) vs opaque</li>
+<li><strong>A-H2 Access friction</strong> — direct HTTPS vs auth-required</li>
+<li><strong>R-H1 License clarity</strong> — human-readable string vs URL-only vs missing</li>
+<li><strong>R-H2 Narrative docs</strong> — description length × provider info</li>
+</ul>
+<p style="color:#475569;font-size:13px;">All metrics intentionally simple for v0. Future versions plug in TF-IDF discoverability, Claude-judged narrative quality, and Warren Wood's NRL framework primitives.</p>
+</details>
+
+<h2 style="margin-top:32px;">Side-by-side scoring — selected datasets</h2>
+
+<section style="border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px;background:white;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:8px;">
+        <div style="flex:1;">
+            <h3 style="margin:0;font-size:18px;color:#0f172a;">AOOS ERDDAP</h3>
+            <div style="color:#64748b;font-size:13px;margin-top:4px;">AOOS · 2,733 items</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">FAIR-C</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 3.00</span>
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-left:8px;">FAIR-H</span><span style="display:inline-block;background:#ca8a04;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">C · 2.40</span>
+        </div>
+    </div>
+    <p style="color:#475569;font-size:13px;line-height:1.5;margin:8px 0 16px 0;">Ocean and coastal datasets from the Alaska Ocean Observing System (AOOS) ERDDAP server.</p>
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+                <th style="padding:8px 0;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Category</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-C</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H</th>
+                <th style="padding:8px 0 8px 12px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H evidence</th>
+            </tr>
+        </thead>
+        <tbody><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Findable</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F4</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F-H</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">4 of 33 lay terms matched in title/description/keywords</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Format-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓3.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">No asset types declared</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Auth-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1.2<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H2</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Direct HTTPS data links present</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Licensed for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1.1</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Vague: various</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Documented for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.60</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H2</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">87-char description, providers=no</td>
+    </tr></tbody>
+    </table>
+</section>
+
+<section style="border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px;background:white;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:8px;">
+        <div style="flex:1;">
+            <h3 style="margin:0;font-size:18px;color:#0f172a;">World Ocean Database</h3>
+            <div style="color:#64748b;font-size:13px;margin-top:4px;">WOD · 226,654 items</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">FAIR-C</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 3.00</span>
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-left:8px;">FAIR-H</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 3.00</span>
+        </div>
+    </div>
+    <p style="color:#475569;font-size:13px;line-height:1.5;margin:8px 0 16px 0;">World Ocean Database (WOD) cruise data — ocean profile observations from bottles, CTDs, expendable probes, floats, buoys, gliders, and other instrument types. Includes temperature, salinity, oxygen, nutrients, and other variables from 1770 to present.</p>
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+                <th style="padding:8px 0;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Category</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-C</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H</th>
+                <th style="padding:8px 0 8px 12px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H evidence</th>
+            </tr>
+        </thead>
+        <tbody><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Findable</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F4</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F-H</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">6 of 33 lay terms matched in title/description/keywords</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Format-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓3.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">No asset types declared</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Auth-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1.2<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H2</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Direct HTTPS data links present</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Licensed for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1.1</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H1</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Human-readable license: CC0-1.0</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Documented for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.60</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H2</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">251-char description, providers=no</td>
+    </tr></tbody>
+    </table>
+</section>
+
+<section style="border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px;background:white;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:8px;">
+        <div style="flex:1;">
+            <h3 style="margin:0;font-size:18px;color:#0f172a;">NOAA National Data Buoy Center</h3>
+            <div style="color:#64748b;font-size:13px;margin-top:4px;">NDBC · 1,471 items</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">FAIR-C</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 3.00</span>
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-left:8px;">FAIR-H</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 2.60</span>
+        </div>
+    </div>
+    <p style="color:#475569;font-size:13px;line-height:1.5;margin:8px 0 16px 0;">Oceanographic and meteorological observations from the National Data Buoy Center (NDBC), including active stations, historical deployments, realtime data, and THREDDS/OpenDAP archives. Variables include wave height, wind speed, water temperature, barometric pressure, and more.</p>
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+                <th style="padding:8px 0;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Category</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-C</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H</th>
+                <th style="padding:8px 0 8px 12px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H evidence</th>
+            </tr>
+        </thead>
+        <tbody><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Findable</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F4</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F-H</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">6 of 33 lay terms matched in title/description/keywords</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Format-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓3.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">No asset types declared</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Auth-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1.2<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H2</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Direct HTTPS data links present</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Licensed for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1.1</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Vague: various</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Documented for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.60</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H2</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">277-char description, providers=no</td>
+    </tr></tbody>
+    </table>
+</section>
+
+<section style="border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px;background:white;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:8px;">
+        <div style="flex:1;">
+            <h3 style="margin:0;font-size:18px;color:#0f172a;">NOAA Digital Coast</h3>
+            <div style="color:#64748b;font-size:13px;margin-top:4px;">DIGITALCOAST · 3,286 items</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">FAIR-C</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 3.00</span>
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-left:8px;">FAIR-H</span><span style="display:inline-block;background:#ca8a04;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">C · 2.40</span>
+        </div>
+    </div>
+    <p style="color:#475569;font-size:13px;line-height:1.5;margin:8px 0 16px 0;">NOAA Digital Coast datasets including ortho-rectified imagery, elevation data (DEM), lidar point clouds, and land cover classifications for coastal U.S. regions.</p>
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+                <th style="padding:8px 0;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Category</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-C</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H</th>
+                <th style="padding:8px 0 8px 12px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H evidence</th>
+            </tr>
+        </thead>
+        <tbody><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Findable</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F4</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F-H</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">4 of 33 lay terms matched in title/description/keywords</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Format-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓3.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">No asset types declared</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Auth-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1.2<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H2</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Direct HTTPS data links present</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Licensed for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1.1</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Vague: various</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Documented for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.60</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H2</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">161-char description, providers=no</td>
+    </tr></tbody>
+    </table>
+</section>
+
+<section style="border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px;background:white;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:8px;">
+        <div style="flex:1;">
+            <h3 style="margin:0;font-size:18px;color:#0f172a;">Sentinel-2 L2A</h3>
+            <div style="color:#64748b;font-size:13px;margin-top:4px;">sentinel-2-l2a · 22,317 items</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">FAIR-C</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 2.86</span>
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-left:8px;">FAIR-H</span><span style="display:inline-block;background:#ca8a04;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">C · 1.80</span>
+        </div>
+    </div>
+    <p style="color:#475569;font-size:13px;line-height:1.5;margin:8px 0 16px 0;">Global Sentinel-2 data from the Multispectral Instrument (MSI) onboard Sentinel-2</p>
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+                <th style="padding:8px 0;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Category</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-C</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H</th>
+                <th style="padding:8px 0 8px 12px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H evidence</th>
+            </tr>
+        </thead>
+        <tbody><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Findable</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F4</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F-H</span>
+            <span style="color:#7f1d1d;font-weight:700;margin-left:8px;">F</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">0.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓4.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">0 of 33 lay terms matched in title/description/keywords</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Format-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓3.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">No asset types declared</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Auth-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1.2<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H2</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Direct HTTPS data links present</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Licensed for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1.1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Vague: various</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Documented for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H2</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">81-char description, providers=no</td>
+    </tr></tbody>
+    </table>
+</section>
+
+<section style="border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px;background:white;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:8px;">
+        <div style="flex:1;">
+            <h3 style="margin:0;font-size:18px;color:#0f172a;">NOAA Incident News</h3>
+            <div style="color:#64748b;font-size:13px;margin-top:4px;">INCIDENT_NEWS · 4,844 items</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">FAIR-C</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 2.65</span>
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-left:8px;">FAIR-H</span><span style="display:inline-block;background:#ca8a04;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">C · 2.40</span>
+        </div>
+    </div>
+    <p style="color:#475569;font-size:13px;line-height:1.5;margin:8px 0 16px 0;">NOAA Incident News provides information on oil spills and marine pollution incidents in U.S. waters. This collection includes incident reports from the NOAA Office of Response and Restoration.</p>
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+                <th style="padding:8px 0;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Category</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-C</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H</th>
+                <th style="padding:8px 0 8px 12px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H evidence</th>
+            </tr>
+        </thead>
+        <tbody><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Findable</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F4</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F-H</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">4 of 33 lay terms matched in title/description/keywords</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Format-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓3.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">No asset types declared</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Auth-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1.2<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H2</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Direct HTTPS data links present</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Licensed for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1.1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.40</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑0.6</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Vague: various</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Documented for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H2</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">192-char description, providers=no</td>
+    </tr></tbody>
+    </table>
+</section>
+
+<section style="border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px;background:white;">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:8px;">
+        <div style="flex:1;">
+            <h3 style="margin:0;font-size:18px;color:#0f172a;">NOAA NOS CO-OPS ERDDAP</h3>
+            <div style="color:#64748b;font-size:13px;margin-top:4px;">NOS_COOPS · 0 items</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">FAIR-C</span><span style="display:inline-block;background:#ca8a04;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">C · 2.40</span>
+            <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-left:8px;">FAIR-H</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 2.60</span>
+        </div>
+    </div>
+    <p style="color:#475569;font-size:13px;line-height:1.5;margin:8px 0 16px 0;">Coastal oceanographic and meteorological observations from NOAA's Center for Operational Oceanographic Products and Services (CO-OPS), including water levels, currents, water temperature, salinity, and meteorological measurements at tide and current stations across the United Sta…</p>
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+                <th style="padding:8px 0;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Category</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-C</th>
+                <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H</th>
+                <th style="padding:8px 0 8px 12px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H evidence</th>
+            </tr>
+        </thead>
+        <tbody><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Findable</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F4<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.82</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F-H</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">8 of 33 lay terms matched in title/description/keywords</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Format-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓3.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">No asset types declared</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Auth-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1.2<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H2</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Direct HTTPS data links present</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Licensed for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1.1</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Vague: various</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Documented for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.60</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H2</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">284-char description, providers=no</td>
+    </tr></tbody>
+    </table>
+</section>
+
+<h2 style="margin-top:48px;">UI mockup</h2>
+<p style="color:#475569;">How the dual score would render on an AQUAVIEW dataset detail page (showing the dataset with the largest FAIR-C ↔ FAIR-H divergence in the sample above):</p>
+
+<div style="background:#f8fafc;padding:24px;border-radius:12px;margin-top:24px;border:1px dashed #cbd5e1;">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#94a3b8;margin-bottom:12px;">
+        UI mockup — FAIR tab on /explore/item/sentinel-2-l2a/&lt;item-id&gt;
+    </div>
+    <!-- Page chrome -->
+    <div style="background:white;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.05);overflow:hidden;">
+        <div style="padding:20px 24px 0 24px;">
+            <div style="font-size:13px;color:#64748b;margin-bottom:6px;">explore / sentinel-2-l2a / &lt;item-id&gt;</div>
+            <h2 style="margin:4px 0 4px 0;font-size:22px;color:#0f172a;letter-spacing:-0.01em;">Sentinel-2 L2A</h2>
+            <p style="color:#475569;font-size:13px;line-height:1.5;margin:6px 0 16px 0;">Global Sentinel-2 data from the Multispectral Instrument (MSI) onboard Sentinel-2</p>
+        </div>
+        <!-- Tab bar -->
+        <div style="display:flex;gap:0;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;background:#fafbfc;padding:0 24px;">
+            <div style="padding:10px 16px;font-size:13px;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;">Overview</div><div style="padding:10px 16px;font-size:13px;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;">Preview</div><div style="padding:10px 16px;font-size:13px;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;">Statistics</div><div style="padding:10px 16px;font-size:13px;font-weight:600;color:#0f172a;border-bottom:2px solid #0ea5e9;cursor:pointer;">FAIR</div><div style="padding:10px 16px;font-size:13px;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;">Data</div><div style="padding:10px 16px;font-size:13px;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;">Metadata</div>
+        </div>
+        <!-- Tab content -->
+        <div style="padding:24px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <div>
+                    <h3 style="margin:0;font-size:15px;color:#0f172a;">FAIR Score — dual framework</h3>
+                    <div style="color:#94a3b8;font-size:12px;margin-top:2px;">Machine-actionability (FAIR-C) and human-experience (FAIR-H), measured separately on the same dataset.</div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;">
+                    <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;">FAIR-C</span><span style="display:inline-block;background:#65a30d;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">B · 2.86</span>
+                    <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-left:8px;">FAIR-H</span><span style="display:inline-block;background:#ca8a04;color:white;border-radius:6px;padding:2px 10px;font-weight:600;font-family:system-ui;font-size:14px;letter-spacing:.02em;">C · 1.80</span>
+                </div>
+            </div>
+            <table style="width:100%;border-collapse:collapse;">
+                <thead>
+                    <tr style="border-bottom:2px solid #e2e8f0;">
+                        <th style="padding:8px 0;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Category</th>
+                        <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-C</th>
+                        <th style="padding:8px 12px;text-align:right;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">FAIR-H</th>
+                        <th style="padding:8px 0 8px 12px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600;">Evidence</th>
+                    </tr>
+                </thead>
+                <tbody><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Findable</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F4</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">F-H</span>
+            <span style="color:#7f1d1d;font-weight:700;margin-left:8px;">F</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">0.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓4.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">0 of 33 lay terms matched in title/description/keywords</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Format-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H1</span>
+            <span style="color:#dc2626;font-weight:700;margin-left:8px;">D</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">1.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓3.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">No asset types declared</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Auth-accessible</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A1.2<span title="platform-level fallback" style="color:#cbd5e1;font-size:10px;margin-left:4px;">·</span></span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">A-H2</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">A</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">4.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↑1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Direct HTTPS data links present</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Licensed for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1.1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H1</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">Vague: various</td>
+    </tr><tr style="border-top:1px solid #f1f5f9;">
+        <td style="padding:10px 0;font-size:13px;color:#0f172a;font-weight:500;">Documented for reuse</td>
+        <td style="padding:10px 12px;text-align:right;width:130px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R1</span>
+            <span style="color:#65a30d;font-weight:700;margin-left:8px;">B</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">3.00</span>
+        </td>
+        <td style="padding:10px 12px;text-align:right;width:140px;">
+            <span style="font-family:ui-monospace,monospace;font-size:11px;color:#94a3b8;">R-H2</span>
+            <span style="color:#ca8a04;font-weight:700;margin-left:8px;">C</span>
+            <span style="color:#94a3b8;font-size:12px;margin-left:4px;">2.00</span>
+            <span style="color:#94a3b8;font-size:11px;margin-left:6px;">↓1.0</span>
+        </td>
+        <td style="padding:10px 0 10px 12px;color:#64748b;font-size:12px;">81-char description, providers=no</td>
+    </tr></tbody>
+            </table>
+            <div style="margin-top:16px;padding:12px 16px;background:#f0f9ff;border-left:3px solid #0ea5e9;border-radius:4px;font-size:12px;color:#0c4a6e;">
+                <strong>What's new:</strong> FAIR-H surfaces the human experience (lay-keyword discoverability, format friction, license clarity, narrative docs) — orthogonal to FAIR-C's machine-token presence. Where the two scores diverge is where the platform owes its users a closer look.
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="margin-top:64px;padding-top:24px;border-top:1px solid #e2e8f0;color:#94a3b8;font-size:12px;">
+Generated by <code>fair_benchmark.dual_mvp</code> · AQUAVIEW-DAH/aquaview-fair-benchmark
+</footer>
+</body></html>
